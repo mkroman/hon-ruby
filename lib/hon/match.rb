@@ -3,8 +3,8 @@
 module HoN
   class MatchStats < Stats
     
-    def initialize match_id
-      @match_id   = match_id
+    def initialize id
+      @match_id   = id
       @statistics = { server: {}, legion: { players: [] }, hellbourne: { players: [] } }
 
       retrieve_statistics

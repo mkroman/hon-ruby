@@ -3,6 +3,26 @@
 module HoN
   class PlayerStats < Stats
 
+    attr_statistics :wins,            :acc_wins           # The total amount of victories.
+    attr_statistics :kicks,           :acc_kicked         # The amount of times the player has been kicked from a game.
+    attr_statistics :losses,          :acc_losses         # The total amount of defeats.
+    attr_statistics :deaths,          :acc_deaths         # The total amount of deaths in a match.
+    attr_statistics :psr,             :acc_pub_skill      # The players Public Skill Rating.
+    attr_statistics :nickname,        :nickname           # The player's nickname.
+    attr_statistics :kills,           :acc_herokills      # The total amount of heroes the player has killed.
+    attr_statistics :concedes,        :acc_concedes       # The total amount of games conceded.
+    attr_statistics :buybacks,        :acc_buybacks       # The (total? average?) amount of hero buybacks.
+    attr_statistics :total_exp,       :acc_heroexp        # The total amount of experience the player has gained.
+    attr_statistics :disconnects,     :acc_discos         # The amount of times the player has disconnected from a game.
+    attr_statistics :games,           :acc_games_played   # The total amount of games played.
+    attr_statistics :idle_time,       :acc_secs_dead      # Total amount of time dead
+    attr_statistics :assists,         :acc_heroassists    # The total amount of assist kills.
+    attr_statistics :total_damage,    :acc_herodmg        # The total amount of damage the player has dealt to heroes.
+    attr_statistics :public_games,    :acc_pub_count      # The amount of public games the player has played (non-matchmaking games).
+    attr_statistics :concede_votes,   :acc_concedevotes   # The amount of times the player has tried to concede.
+    attr_statistics :total_hero_gold, :acc_herokillsgold  # The total amount of gold consumed from killing enemy heroes.
+    attr_statistics :total_gold_lost, :acc_goldlost2death # Total amount of gold consumed by enemies or creeps on death.
+
     def initialize nickname, *options
       @nickname   = nickname
       @statistics = Hash.new
@@ -12,28 +32,8 @@ module HoN
     end
 
     def inspect
-      %{<#{self.class} @nickname="#{nickname}" @games=#{games} @wins=#{wins} @losses=#{losses}>}
+      %{<#{self.class.name} @nickname="#{nickname}" @games=#{games} @wins=#{wins} @losses=#{losses}>}
     end
-    
-    def psr;             @statistics[:acc_pub_skill]      end # The players Public Skill Rating.
-    def wins;            @statistics[:acc_wins]           end # The total amount of victories.
-    def games;           @statistics[:acc_games_played]   end # The total amount of games played.
-    def kills;           @statistics[:acc_herokills]      end # The total amount of heroes the player has killed.
-    def deaths;          @statistics[:acc_deaths]         end # The total amount of deaths in a match.
-    def kicked;          @statistics[:acc_kicked]         end # The amount of times the player has been kicked from a game.
-    def losses;          @statistics[:acc_losses]         end # The total amount of defeats.
-    def assists;         @statistics[:acc_heroassists]    end
-    def concedes;        @statistics[:acc_concedes]       end # The total amount of games conceded.
-    def buybacks;        @statistics[:acc_buybacks]       end # The (total? average?) amount of hero buybacks.
-    def nickname;        @statistics[:nickname]           end # The player's nickname 
-    def total_exp;       @statistics[:acc_heroexp]        end # The total amount of experience the player has gained.
-    def idle_time;       @statistics[:acc_secs_dead]      end # Total amount of time death
-    def disconnects;     @statistics[:acc_discos]         end # The amount of times the player has disconnected from a game.
-    def total_damage;    @statistics[:acc_herodmg]        end # The total amount of damage the player has dealt to heroes.
-    def public_games;    @statistics[:acc_pub_count]      end # The amount of public games the player has played (non-matchmaking games).
-    def concede_votes;   @statistics[:acc_concedevotes]   end # The amount of times the player has tried to concede.
-    def total_hero_gold; @statistics[:acc_herokillsgold]  end # The total amount of gold consumed from killing enemy heroes.
-    def total_gold_lost; @statistics[:acc_goldlost2death] end # Total amount of gold consumed by enemies or creeps on death.
 
     def win_percentage
       (wins.to_f / games.to_f * 100).round 1
